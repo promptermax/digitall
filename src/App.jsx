@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card.jsx'
 import { Input } from '@/components/ui/input.jsx'
 import { Textarea } from '@/components/ui/textarea.jsx'
 import { Label } from '@/components/ui/label.jsx'
-import { Menu, X, ChevronDown, Star, ArrowRight, Play, Users, Award, Globe, Palette, Video, Megaphone, FileText, Printer, Mail, Phone, MapPin } from 'lucide-react'
+import { Menu, X, ChevronDown, Star, ArrowRight, Play, Users, Award, Globe, Palette, Video, Megaphone, FileText, Printer, Mail, Phone, MapPin, Linkedin, Facebook, Instagram, Twitter } from 'lucide-react'
 import ClientLogos from "@/components/ClientLogos"
 import Blog from "./components/Blog"
 import { Routes, Route, Link } from "react-router-dom"
@@ -559,10 +559,18 @@ export default function App() {
                 Creative solutions that transform brands across Africa and beyond.
               </p>
               <div className="flex space-x-4">
-                <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
-                <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
-                <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
-                <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
+                <a href="https://www.linkedin.com/company/digitalltech/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                  <Linkedin className="w-8 h-8 text-gray-400 hover:text-[#B83C3C] transition" />
+                </a>
+                <a href="https://x.com/digitall_gm?s=21" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                  <Twitter className="w-8 h-8 text-gray-400 hover:text-[#B83C3C] transition" />
+                </a>
+                <a href="https://www.facebook.com/share/1CAzxjQ4GY/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <Facebook className="w-8 h-8 text-gray-400 hover:text-[#B83C3C] transition" />
+                </a>
+                <a href="https://www.instagram.com/digitall_gm" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <Instagram className="w-8 h-8 text-gray-400 hover:text-[#B83C3C] transition" />
+                </a>
               </div>
             </div>
             <div>
