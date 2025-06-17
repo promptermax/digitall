@@ -80,6 +80,11 @@ function HomePage(props) {
       icon: <Printer className="w-8 h-8" />,
       title: "Print & Production",
       description: "High-quality printing and marketing materials that leave lasting impressions"
+    },
+    {
+      icon: <Users className="w-8 h-8" />,
+      title: "Event Hosting & Emcee",
+      description: "Professional event hosting, emcee services, and seamless event organization—complete with creative branding and memorable experiences."
     }
   ]
 
@@ -367,6 +372,7 @@ function HomePage(props) {
                         <option value="video">Audiovisual Production</option>
                         <option value="communication">Corporate Communication</option>
                         <option value="print">Print & Production</option>
+                        <option value="event">Event Hosting & Emcee</option>
                       </select>
                     </div>
                   </div>
@@ -581,6 +587,7 @@ export default function App() {
                 <li>Audiovisual Production</li>
                 <li>Corporate Communication</li>
                 <li>Print & Production</li>
+                <li>Event Hosting & Emcee</li>
               </ul>
             </div>
             <div>
