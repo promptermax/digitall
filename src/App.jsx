@@ -5,9 +5,12 @@ import { Input } from '@/components/ui/input.jsx'
 import { Textarea } from '@/components/ui/textarea.jsx'
 import { Label } from '@/components/ui/label.jsx'
 import { Menu, X, ChevronDown, Star, ArrowRight, Play, Users, Award, Globe, Palette, Video, Megaphone, FileText, Printer, Mail, Phone, MapPin } from 'lucide-react'
+import ClientLogos from "@/components/ClientLogos"
+import Blog from "./components/Blog"
+import { Routes, Route, Link } from "react-router-dom"
 import './App.css'
 
-function App() {
+function HomePage(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [formData, setFormData] = useState({
@@ -111,58 +114,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'header-blur shadow-lg' : 'bg-transparent'}`}>
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="text-2xl font-bold" style={{ color: 'var(--digitall-red)' }}>
-              Digitall
-            </div>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="text-gray-700 hover:text-red-600 transition-colors">Home</a>
-              <a href="#services" className="text-gray-700 hover:text-red-600 transition-colors">Services</a>
-              <a href="#about" className="text-gray-700 hover:text-red-600 transition-colors">About</a>
-              <a href="#portfolio" className="text-gray-700 hover:text-red-600 transition-colors">Portfolio</a>
-              <a href="#blog" className="text-gray-700 hover:text-red-600 transition-colors">Blog</a>
-              <a href="#contact" className="text-gray-700 hover:text-red-600 transition-colors">Contact</a>
-            </nav>
-
-            {/* CTA Button */}
-            <Button className="hidden md:block btn-primary px-6 py-2 rounded-full">
-              Start Your Project
-            </Button>
-
-            {/* Mobile Menu Button */}
-            <button 
-              className="md:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-
-          {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="md:hidden mt-4 pb-4">
-              <nav className="flex flex-col space-y-4">
-                <a href="#home" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>Home</a>
-                <a href="#services" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>Services</a>
-                <a href="#about" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>About</a>
-                <a href="#portfolio" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>Portfolio</a>
-                <a href="#blog" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>Blog</a>
-                <a href="#contact" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</a>
-                <Button className="btn-primary px-6 py-2 rounded-full w-fit">
-                  Start Your Project
-                </Button>
-              </nav>
-            </div>
-          )}
-        </div>
-      </header>
-
       {/* Hero Section */}
       <section id="home" className="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
         {/* Floating Elements */}
@@ -194,6 +145,9 @@ function App() {
           </div>
         </div>
       </section>
+
+      {/* Client Logos Section */}
+      <ClientLogos />
 
       {/* Services Section */}
       <section id="services" className="py-20 bg-gray-50">
@@ -457,14 +411,14 @@ function App() {
                     <Phone className="w-6 h-6 mr-4" style={{ color: 'var(--digitall-red)' }} />
                     <div>
                       <div className="font-semibold">Phone</div>
-                      <div className="text-gray-600">+220 XXX XXXX</div>
+                      <div className="text-gray-600">+220 7048481</div>
                     </div>
                   </div>
                   <div className="flex items-center">
                     <MapPin className="w-6 h-6 mr-4" style={{ color: 'var(--digitall-red)' }} />
                     <div>
                       <div className="font-semibold">Location</div>
-                      <div className="text-gray-600">Banjul, The Gambia</div>
+                      <div className="text-gray-600">Wellingara, Kombo North, West Coast Region</div>
                     </div>
                   </div>
                 </div>
@@ -514,6 +468,84 @@ function App() {
           </div>
         </div>
       </section>
+    </div>
+  )
+}
+
+export default function App() {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isScrolled, setIsScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'header-blur shadow-lg' : 'bg-transparent'}`}>
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <div>
+              <img
+                src="/logos/digitalllogo.png"
+                alt="Digitall Logo"
+                className="h-10 w-auto"
+                style={{ maxHeight: '40px' }}
+              />
+            </div>
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-8">
+              <Link to="/" className="text-gray-700 hover:text-red-600 transition-colors">Home</Link>
+              <Link to="/services" className="text-gray-700 hover:text-red-600 transition-colors">Services</Link>
+              <Link to="/about" className="text-gray-700 hover:text-red-600 transition-colors">About</Link>
+              <Link to="/portfolio" className="text-gray-700 hover:text-red-600 transition-colors">Portfolio</Link>
+              <Link to="/blog" className="text-gray-700 hover:text-red-600 transition-colors">Blog</Link>
+              <Link to="/contact" className="text-gray-700 hover:text-red-600 transition-colors">Contact</Link>
+            </nav>
+            {/* CTA Button */}
+            <Button className="hidden md:block btn-primary px-6 py-2 rounded-full">
+              Start Your Project
+            </Button>
+            {/* Mobile Menu Button */}
+            <button 
+              className="md:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <div className="md:hidden mt-4 pb-4">
+              <nav className="flex flex-col space-y-4">
+                <Link to="/" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>Home</Link>
+                <Link to="/services" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>Services</Link>
+                <Link to="/about" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>About</Link>
+                <Link to="/portfolio" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>Portfolio</Link>
+                <Link to="/blog" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>Blog</Link>
+                <Link to="/contact" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+                <Button className="btn-primary px-6 py-2 rounded-full w-fit">
+                  Start Your Project
+                </Button>
+              </nav>
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* Main Content (with padding for fixed header) */}
+      <div style={{ paddingTop: 96 }}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/blog" element={<Blog />} />
+        </Routes>
+      </div>
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-16">
@@ -557,8 +589,8 @@ function App() {
               <h4 className="font-semibold mb-4">Contact</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>contact@digitall.gm</li>
-                <li>+220 XXX XXXX</li>
-                <li>Banjul, The Gambia</li>
+                <li>+220 7048481</li>
+                <li>Wellingara, Kombo North, West Coast Region</li>
               </ul>
             </div>
           </div>
@@ -570,6 +602,4 @@ function App() {
     </div>
   )
 }
-
-export default App
 
