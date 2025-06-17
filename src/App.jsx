@@ -4,11 +4,17 @@ import { Card, CardContent } from '@/components/ui/card.jsx'
 import { Input } from '@/components/ui/input.jsx'
 import { Textarea } from '@/components/ui/textarea.jsx'
 import { Label } from '@/components/ui/label.jsx'
-import { Menu, X, ChevronDown, Star, ArrowRight, Play, Users, Award, Globe, Palette, Video, Megaphone, FileText, Printer, Mail, Phone, MapPin, Linkedin, Facebook, Instagram, Twitter } from 'lucide-react'
+import { Menu, X, ChevronDown, Star, ArrowRight, Play, Users, Award, Globe, Palette, Video, Megaphone, FileText, Printer, Mail, Phone, MapPin, Linkedin, Facebook, Instagram, Twitter, CheckCircle, ThumbsUp, Clock } from 'lucide-react'
 import ClientLogos from "@/components/ClientLogos"
 import Blog from "./components/Blog"
+import BlogDetail from "./components/BlogDetail"
 import { Routes, Route, Link } from "react-router-dom"
 import './App.css'
+import AboutUs from "./components/AboutUs"
+import OurTeam from "./components/OurTeam"
+import Portfolio from "./components/Portfolio"
+import Careers from "./components/Careers"
+import Contact from "./components/Contact"
 
 function HomePage(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -20,6 +26,9 @@ function HomePage(props) {
     service: '',
     message: ''
   })
+  const [formSubmitted, setFormSubmitted] = useState(false)
+  const [humanCheck, setHumanCheck] = useState("")
+  const [humanError, setHumanError] = useState("")
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,8 +60,17 @@ function HomePage(props) {
       return
     }
     
-    alert('Thank you for your message! We will get back to you soon.')
+    // Human verification
+    if (humanCheck.trim() !== "7") {
+      setHumanError("Please answer the human verification question correctly.")
+      return
+    } else {
+      setHumanError("")
+    }
+    
+    setFormSubmitted(true)
     setFormData({ name: '', email: '', phone: '', service: '', message: '' })
+    setHumanCheck("")
   }
 
   const services = [
@@ -139,11 +157,14 @@ function HomePage(props) {
             We bring your vision to life through innovative design, compelling storytelling, and strategic communication across all media.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="btn-primary px-8 py-3 rounded-full text-lg">
+            <Link to="/contact" className="btn-primary px-8 py-3 rounded-full text-lg flex items-center justify-center">
               Start Your Project
               <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-            <Button className="btn-secondary px-8 py-3 rounded-full text-lg">
+            </Link>
+            <Button className="btn-secondary px-8 py-3 rounded-full text-lg" onClick={() => {
+              const section = document.getElementById('portfolio');
+              if (section) section.scrollIntoView({ behavior: 'smooth' });
+            }}>
               <Play className="mr-2 w-5 h-5" />
               View Our Work
             </Button>
@@ -198,19 +219,23 @@ function HomePage(props) {
                 Led by an industry veteran with experience working alongside top brands and international organizations, we deliver world-class creative solutions with local insight.
               </p>
               <div className="grid grid-cols-2 gap-6">
-                <div className="text-center">
+                <div className="text-center p-4 rounded-lg hover:shadow-lg transition-shadow">
+                  <CheckCircle className="w-12 h-12 mx-auto mb-4" style={{ color: 'var(--digitall-red)' }} />
                   <div className="text-3xl font-bold mb-2" style={{ color: 'var(--digitall-red)' }}>50+</div>
                   <div className="text-gray-600">Projects Completed</div>
                 </div>
-                <div className="text-center">
+                <div className="text-center p-4 rounded-lg hover:shadow-lg transition-shadow">
+                  <Globe className="w-12 h-12 mx-auto mb-4" style={{ color: 'var(--digitall-red)' }} />
                   <div className="text-3xl font-bold mb-2" style={{ color: 'var(--digitall-red)' }}>15+</div>
                   <div className="text-gray-600">Countries Served</div>
                 </div>
-                <div className="text-center">
+                <div className="text-center p-4 rounded-lg hover:shadow-lg transition-shadow">
+                  <ThumbsUp className="w-12 h-12 mx-auto mb-4" style={{ color: 'var(--digitall-red)' }} />
                   <div className="text-3xl font-bold mb-2" style={{ color: 'var(--digitall-red)' }}>100%</div>
                   <div className="text-gray-600">Client Satisfaction</div>
                 </div>
-                <div className="text-center">
+                <div className="text-center p-4 rounded-lg hover:shadow-lg transition-shadow">
+                  <Clock className="w-12 h-12 mx-auto mb-4" style={{ color: 'var(--digitall-red)' }} />
                   <div className="text-3xl font-bold mb-2" style={{ color: 'var(--digitall-red)' }}>24/7</div>
                   <div className="text-gray-600">Support Available</div>
                 </div>
@@ -244,22 +269,22 @@ function HomePage(props) {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {portfolioItems.map((item, index) => (
-              <div key={index} className={`portfolio-item ${item.color} h-64 rounded-lg relative overflow-hidden cursor-pointer`}>
+              <Link to="/portfolio" key={index} className={`portfolio-item ${item.color} h-64 rounded-lg relative overflow-hidden cursor-pointer block`}>
                 <div className="absolute inset-0 bg-black/40 flex items-end p-6">
                   <div className="text-white">
                     <div className="text-sm opacity-80 mb-1">{item.category}</div>
                     <div className="font-semibold">{item.title}</div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
           <div className="text-center">
-            <Button className="btn-primary px-8 py-3 rounded-full">
+            <Link to="/portfolio" className="btn-primary px-8 py-3 rounded-full inline-flex items-center justify-center">
               View All Work
               <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -391,11 +416,28 @@ function HomePage(props) {
                     />
                   </div>
 
-                  <Button type="submit" className="btn-primary w-full py-3 rounded-full">
+                  <div>
+                    <label htmlFor="humanCheck" className="block text-sm font-medium text-gray-700 mb-1">Human Verification: What is 3 + 4?</label>
+                    <input
+                      id="humanCheck"
+                      name="humanCheck"
+                      type="text"
+                      value={humanCheck}
+                      onChange={e => setHumanCheck(e.target.value)}
+                      className="w-full px-4 py-2 rounded border border-gray-300"
+                      required
+                    />
+                    {humanError && <div className="text-red-600 text-sm mt-1">{humanError}</div>}
+                  </div>
+
+                  <Button type="submit" className="btn-primary w-full py-3 rounded-full mt-2">
                     Send Message
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                 </form>
+                {formSubmitted && (
+                  <div className="text-green-600 text-lg font-semibold mt-6">Your message has been submitted! A member of our team will reach out to you soon.</div>
+                )}
               </CardContent>
             </Card>
 
@@ -464,13 +506,10 @@ function HomePage(props) {
             Ready to transform your brand with world-class creative solutions? Let's start the conversation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="btn-primary px-8 py-3 rounded-full text-lg bg-white text-gray-900 hover:bg-gray-100">
+            <Link to="/contact" className="btn-primary px-8 py-3 rounded-full text-lg bg-white text-gray-900 hover:bg-gray-100 flex items-center justify-center">
               Contact Us Today
               <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-            <Button className="btn-secondary px-8 py-3 rounded-full text-lg">
-              Schedule a Call
-            </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -498,26 +537,24 @@ export default function App() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div>
-              <img
-                src="/logos/digitalllogo.png"
-                alt="Digitall Logo"
-                className="h-10 w-auto"
-                style={{ maxHeight: '40px' }}
-              />
+              <Link to="/">
+                <img
+                  src="/digitalllogo/logo.PNG"
+                  alt="Digitall Logo"
+                  className="h-10 w-auto"
+                  style={{ maxHeight: '40px' }}
+                />
+              </Link>
             </div>
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-8 mx-auto">
               <Link to="/" className="text-gray-700 hover:text-red-600 transition-colors">Home</Link>
               <Link to="/services" className="text-gray-700 hover:text-red-600 transition-colors">Services</Link>
-              <Link to="/about" className="text-gray-700 hover:text-red-600 transition-colors">About</Link>
+              <Link to="/about-us" className="text-gray-700 hover:text-red-600 transition-colors">About</Link>
               <Link to="/portfolio" className="text-gray-700 hover:text-red-600 transition-colors">Portfolio</Link>
               <Link to="/blog" className="text-gray-700 hover:text-red-600 transition-colors">Blog</Link>
               <Link to="/contact" className="text-gray-700 hover:text-red-600 transition-colors">Contact</Link>
             </nav>
-            {/* CTA Button */}
-            <Button className="hidden md:block btn-primary px-6 py-2 rounded-full">
-              Start Your Project
-            </Button>
             {/* Mobile Menu Button */}
             <button 
               className="md:hidden"
@@ -532,7 +569,7 @@ export default function App() {
               <nav className="flex flex-col space-y-4">
                 <Link to="/" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>Home</Link>
                 <Link to="/services" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>Services</Link>
-                <Link to="/about" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>About</Link>
+                <Link to="/about-us" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>About</Link>
                 <Link to="/portfolio" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>Portfolio</Link>
                 <Link to="/blog" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>Blog</Link>
                 <Link to="/contact" className="text-gray-700 hover:text-red-600 transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</Link>
@@ -550,6 +587,12 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogDetail />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/our-team" element={<OurTeam />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
 
@@ -558,8 +601,10 @@ export default function App() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <div className="text-2xl font-bold mb-4" style={{ color: 'var(--digitall-red)' }}>
-                Digitall
+              <div className="mb-4">
+                <Link to="/">
+                  <img src="/digitalllogo/logo.PNG" alt="Digitall Logo" className="h-12 w-auto" style={{ maxHeight: '48px' }} />
+                </Link>
               </div>
               <p className="text-gray-400 mb-4">
                 Creative solutions that transform brands across Africa and beyond.
@@ -593,11 +638,11 @@ export default function App() {
             <div>
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-gray-400">
-                <li>About Us</li>
-                <li>Our Team</li>
-                <li>Portfolio</li>
-                <li>Blog</li>
-                <li>Careers</li>
+                <li><Link to="/about-us" className="hover:text-white transition">About Us</Link></li>
+                <li><Link to="/our-team" className="hover:text-white transition">Our Team</Link></li>
+                <li><Link to="/portfolio" className="hover:text-white transition">Portfolio</Link></li>
+                <li><Link to="/blog" className="hover:text-white transition">Blog</Link></li>
+                <li><Link to="/careers" className="hover:text-white transition">Careers</Link></li>
               </ul>
             </div>
             <div>
