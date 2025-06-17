@@ -157,11 +157,13 @@ function HomePage(props) {
             We bring your vision to life through innovative design, compelling storytelling, and strategic communication across all media.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact" className="btn-primary px-8 py-3 rounded-full text-lg flex items-center justify-center">
-              Start Your Project
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Link>
-            <Button className="btn-secondary px-8 py-3 rounded-full text-lg" onClick={() => {
+            <Button asChild className="btn-primary w-72 px-8 py-3 rounded-full text-lg font-semibold flex items-center justify-center gap-2">
+              <Link to="/contact">
+                Start Your Project
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Link>
+            </Button>
+            <Button className="btn-secondary w-72 px-8 py-3 rounded-full text-lg font-semibold flex items-center justify-center gap-2" onClick={() => {
               const section = document.getElementById('portfolio');
               if (section) section.scrollIntoView({ behavior: 'smooth' });
             }}>
@@ -506,10 +508,12 @@ function HomePage(props) {
             Ready to transform your brand with world-class creative solutions? Let's start the conversation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact" className="btn-primary px-8 py-3 rounded-full text-lg bg-white text-gray-900 hover:bg-gray-100 flex items-center justify-center">
-              Contact Us Today
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Link>
+            <Button asChild className="btn-primary px-8 py-3 rounded-full text-lg font-semibold flex items-center justify-center gap-2">
+              <Link to="/contact">
+                Contact Us Today
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
